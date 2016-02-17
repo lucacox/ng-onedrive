@@ -1,2 +1,3 @@
 # ng-onedrive
-MS OndDrive access module
+
+Microsoft OneDrive Angular 2 module 

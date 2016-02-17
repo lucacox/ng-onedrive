@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/reduce';
 
-import { OneDriveAuth } from './ng-onedrive';
+import { OneDriveAuth } from './auth';
 import { Drive, Item } from './resources';
 
 @Injectable()

@@ -1,18 +1,16 @@
 {
   "name": "ng-onedrive",
   "version": "0.1.0",
-  "description": "Angular 2 directive for MS OneDrive service",
-  "main": "index.js",
+  "description": "Angular 2 module for MS OneDrive service",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "angular2",
-    "onedrive",
-    "directive"
+    "onedrive"
   ],
   "author": "Luca Cossaro <luca.cossaro@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "lite-server": "^2.0.1",
     "typescript": "^1.7.5",

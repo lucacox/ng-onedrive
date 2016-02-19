@@ -18,18 +18,24 @@ export class Drive {
     this.quota = new Facets.Quota(data.quota);
   }
 
-  get childrens() {
-    return "drives/" + this.id + "/root/children";
+  get children(): string {
+    return this.root + "/children";
   }
 
-  get root() {
+  get root(): string {
     return "drives/" + this.id + "/root";
   }
 }
 
 export class ItemReference {
-  constructor(data: any) {
+  driveId: string;
+  id: string;
+  path: string;
 
+  constructor(data: any) {
+    this.driveId = data.driveId;
+    this.id = data.id;
+    this.path = data.path;
   }
 }
 
@@ -90,7 +96,10 @@ export class Item {
   // content.downloadUrl: url;
   // content.sourceUrl: url
 
-  constructor(data: any) {
+  constructor(data?: any) {
+    if (data === null || data == undefined) {
+      return;
+    }
     if (data.cTag) this.cTag = data.cTag; //: "adDpBMkRGNDYyOUY0OUI3NTFEITEwNi42MzU4OTA0ODQ1MTE1MzAwMDA"
     if (data.createdBy) this.createdBy = new IdentitySet(data.createdBy); //: {user: {displayName: "Luca Cossaro", id: "a2df4629f49b751d",…}}
     if (data.createdDateTime) this.createdDateTime = new Date(data.createdDateTime); //: "2012-03-02T17:59:11.507Z"
@@ -117,6 +126,14 @@ export class Item {
       return "drive/items/" + this.id + "/children";
 
     return null;
+  }
+
+  isFolder(): boolean {
+    return (this.folder !== undefined && this.folder !== null);
+  }
+
+  isFile(): boolean {
+    return (this.file !== undefined && this.file !== null);
   }
 }
 

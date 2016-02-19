@@ -1,5 +1,5 @@
 
-class Facet {
+export class Facet {
   constructor(data: Object) {
     for (let key in data) {
       if (data[key] !== undefined)

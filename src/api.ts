@@ -27,6 +27,14 @@ export class OneDriveApi {
       }, []));
   }
 
+  defaultDrive() {
+    return this._http.get(this.constructUrl('drive'))
+      .map((res: Response) => res.json())
+      .map((res: any) => {
+        return new Drive(res);
+      })
+  }
+
   root(drive: Drive) {
     return this._http.get(this.constructUrl(drive.root))
       .map((res) => res.json())
@@ -40,6 +48,12 @@ export class OneDriveApi {
         list.push(new Item(obj));
         return list;
       }, []));
+  }
+
+  item(id: string) {
+    return this._http.get(this.constructUrl('drive/items/' + id))
+      .map(res => res.json())
+      .map(res => new Item(res))
   }
 
   // private:

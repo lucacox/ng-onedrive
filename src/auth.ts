@@ -50,7 +50,7 @@ export class OneDriveAuth {
         // logged in!
         this._loggedIn = true;
 
-        this._status.next(new AuthStatus(true, this._expiresIn));
+        setTimeout(() => {this._status.next(new AuthStatus(true, this._expiresIn))}, 1000);
 
         // TODO: this.saveInLocalStorage();
       }

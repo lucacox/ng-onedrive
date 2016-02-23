@@ -32,7 +32,14 @@ export class OneDriveApi {
       .map((res: Response) => res.json())
       .map((res: any) => {
         return new Drive(res);
-      })
+      });
+  }
+
+  /// which: [string] could be on of ['documents', 'photos', 'cameraroll', 'approot', 'music'] (see https://dev.onedrive.com/items/special_folders.htm for documentation)
+  specialFolder(which: string) {
+    return this._http.get(this.constructUrl('drive/special/' + which))
+      .map((res: Response) => res.json())
+      .map(res => new Item(res));
   }
 
   root(drive: Drive) {
@@ -41,19 +48,24 @@ export class OneDriveApi {
       .map(res => new Item(res));
   }
 
-  children(item: Item) {
+  children(item: Item): Observable<Array<Item>> {
     return this._http.get(this.constructUrl(item.children))
       .map((res) => res.json().value)
       .map((res: Array<any>) => res.reduce((list: Array<Item>, obj) => {
-        list.push(new Item(obj));
+        list.push(new Item(obj, item));
         return list;
       }, []));
   }
 
-  item(id: string) {
+  item(id: string, parent?: Item) {
     return this._http.get(this.constructUrl('drive/items/' + id))
       .map(res => res.json())
-      .map(res => new Item(res))
+      .map(res => new Item(res, parent ? parent : null))
+  }
+
+  thumbnail(item: Item, size: string = 'medium') {
+    return this._http.get(this.constructUrl('drive/items/' + item.id + '/thumbnails') + "&select="+size)
+      .map(res => res.json().value[0]);
   }
 
   // private:
